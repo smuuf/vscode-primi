@@ -1,0 +1,29 @@
+{
+    "name": "primi-lang",
+    "displayName": "Primi language support",
+    "description": "Primi language support for VS Code",
+    "publisher": "smuuf",
+    "repository": {
+        "url": "https://github.com/smuuf/vscode-primi"
+    },
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.63.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "primi",
+            "aliases": ["Primi", "primi"],
+            "extensions": [".primi"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "primi",
+            "scopeName": "source.primi",
+            "path": "./syntaxes/primi.tmLanguage.json"
+        }]
+    }
+}

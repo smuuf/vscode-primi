@@ -1,0 +1,249 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "Primi",
+	"scopeName": "source.primi",
+	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#statements"
+		},
+		{
+			"include": "#expressions"
+		}
+	],
+	"repository": {
+		"statements": {
+			"patterns": [
+				{
+					"include": "#keywords"
+				}
+			]
+		},
+		"expressions": {
+			"patterns": [
+				{
+					"include": "#constants"
+				},
+				{
+					"include": "#strings"
+				},
+				{
+					"include": "#numbers"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#classes"
+				},
+				{
+					"include": "#builtins-functions"
+				},
+				{
+					"include": "#builtins-classes"
+				},
+				{
+					"include": "#special-variables"
+				},
+				{
+					"match": ";",
+					"name": "punctuation.terminator.expression.primi"
+				},
+				{
+					"match": "(?<!\\.)\\.(?!\\.)",
+					"name": "keyword.operator.dot punctuation.separator.dot"
+				},
+				{
+					"match": ":",
+					"name": "punctuation.separator.dict"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.primi",
+					"match": "\\b(if|else|elif|while|for|return|continue|break|import|in|try|catch)\\b"
+				},
+				{
+					"name": "keyword.operator.arithmetic.primi",
+					"match": "\\-|\\+|\\*\\*?|/"
+				},
+				{
+					"name": "keyword.operator.logical.primi",
+					"match": "(?<!\\.)(!|(\\b(and|or)\\b))"
+				},
+				{
+					"name": "keyword.operator.comparison.primi",
+					"match": "==|!=|<=|>=|<|>"
+				},
+				{
+					"name": "keyword.operator.assignment.primi",
+					"match": "=|\\+=|\\-=|\\*\\*?=|/=|%=|&=|\\|=|\\^=|<<=|>>=|\\?\\?="
+				}
+			]
+		},
+		"classes": {
+			"patterns": [
+				{
+					"name": "meta.class.primi",
+					"match": "\\b(class)\\b\\s+([a-zA-Z_][a-zA-Z0-9_]*)(\\s*\\(([a-zA-Z_][a-zA-Z0-9_]*)\\))?",
+					"captures": {
+						"1": {
+							"name": "storage.type.class.primi"
+						},
+						"2": {
+							"name": "entity.name.type.class.primi"
+						},
+						"4": {
+							"name": "entity.other.inherited-class.primi"
+						}
+					}
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "meta.function.primi",
+					"match": "\\b(function)\\b(\\s+[a-zA-Z_][a-zA-Z0-9_]*)?",
+					"captures": {
+						"1": {
+							"name": "storage.type.function.primi"
+						},
+						"2": {
+							"name": "entity.name.function.primi"
+						}
+					}
+				},
+				{
+					"name": "meta.function.primi",
+					"match": "\\([^\\)]+?\\)\\s*=>\\s*\\{"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.language.primi",
+					"match": "\\b(true|false|null)\\b"
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [{
+				"name": "constant.numeric.primi",
+				"match": "\\b-?\\d[\\d_]*(\\.[\\d_]+)?\\b"
+			}]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"include": "#fstring-double-quoted"
+				},
+				{
+					"include": "#string-double-quoted"
+				},
+				{
+					"include": "#fstring-single-quoted"
+				},
+				{
+					"include": "#string-single-quoted"
+				}
+			]
+		},
+		"string-double-quoted": {
+			"name": "string.quoted.double.primi",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"include": "#string-core"
+				}
+			]
+		},
+		"string-single-quoted": {
+			"name": "string.quoted.single.primi",
+			"begin": "'",
+			"end": "'",
+			"patterns": [
+				{
+					"include": "#string-core"
+				}
+			]
+		},
+		"fstring-double-quoted": {
+			"name": "string.interpolated.primi string.quoted.double.primi",
+			"begin": "(f)\"",
+			"end": "\"",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.string.primi"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#string-core"
+				},
+				{
+					"include": "#fstring-core"
+				}
+			]
+		},
+		"fstring-single-quoted": {
+			"name": "string.interpolated.primi string.quoted.single.primi",
+			"begin": "(f)'",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.string.primi"
+				}
+			},
+			"end": "'",
+			"patterns": [
+				{
+					"include": "#string-core"
+				},
+				{
+					"include": "#fstring-core"
+				}
+			]
+		},
+		"string-core": {
+			"name": "constant.character.escape.primi",
+			"match": "\\\\(\\|n|t|e|\"|')"
+		},
+		"fstring-core": {
+			"name": "support.type",
+			"match": "(?<!\\{)\\{(?!\\{)[^{]*?(?!=\\})\\}"
+		},
+		"comments": {
+			"name": "comment.line.double-slash.primi",
+			"begin": "//",
+			"end": "\\n"
+		},
+		"special-variables": {
+			"match": "\\b((self)|(cls))\\b",
+			"captures": {
+				"1": {
+					"name": "variable.language.special.primi"
+				},
+				"2": {
+					"name": "variable.language.special.self.primi"
+				},
+				"3": {
+					"name": "variable.language.special.cls.primi"
+				}
+			}
+		},
+		"builtins-functions": {
+				"name": "support.function.builtin.primi",
+				"match": "(?<!\\.)\\b(assert|range|len|print|debugger|getattr|hasattr)\\b"
+		},
+		"builtins-classes": {
+				"name": "support.type.primi",
+				"match": "(?<!\\.)\\b(Null|bool|number|string|regex|list|dict|tuple|type)\\b"
+		}
+	}
+}
