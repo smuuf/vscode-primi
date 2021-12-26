@@ -2,6 +2,7 @@
     "name": "primi-lang",
     "displayName": "Primi language support",
     "description": "Primi language support for VS Code",
+    "icon": "resources/logo_sml.png",
     "publisher": "smuuf",
     "repository": {
         "url": "https://github.com/smuuf/vscode-primi"
